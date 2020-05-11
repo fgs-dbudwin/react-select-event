@@ -59,6 +59,20 @@ describe("The openMenu event helper", () => {
     // option can now be seen because menu is open
     expect(queryByText("Chocolate")).toBeInTheDocument();
   });
+
+  it("opens an autofocused menu", () => {
+    const { getByLabelText, queryByText } = render(
+      <form>
+        <label htmlFor="food">Food</label>
+        <Select {...defaultProps} autoFocus />
+      </form>
+    );
+    // option is not yet visible
+    expect(queryByText("Chocolate")).toBeNull();
+    selectEvent.openMenu(getByLabelText("Food"));
+    // option can now be seen because menu is open
+    expect(queryByText("Chocolate")).toBeInTheDocument();
+  });
 });
 
 describe("The select event helpers", () => {
